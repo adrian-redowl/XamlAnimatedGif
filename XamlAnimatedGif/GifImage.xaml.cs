@@ -126,6 +126,29 @@ namespace XamlAnimatedGif
 
         #endregion
 
+        #region ShowRing
+
+        /// <summary>When false, selection still plays the GIF and leaves the border alone.</summary>
+        public bool ShowRing
+        {
+            get => (bool)GetValue(ShowRingProperty);
+            set => SetValue(ShowRingProperty, value);
+        }
+
+        public static readonly DependencyProperty ShowRingProperty =
+            DependencyProperty.Register(
+                nameof(ShowRing),
+                typeof(bool),
+                typeof(GifImage),
+                new PropertyMetadata(true, OnShowRingChanged));
+
+        private static void OnShowRingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((GifImage)d).ApplySelection();
+        }
+
+        #endregion
+
         #region PlayWhen
 
         public GifPlayWhen PlayWhen
@@ -182,7 +205,7 @@ namespace XamlAnimatedGif
             if (Ring == null)
                 return;
 
-            Ring.BorderBrush = IsSelected ? SelectedBrush : Brushes.Transparent;
+            Ring.BorderBrush = IsSelected && ShowRing ? SelectedBrush : Brushes.Transparent;
             if (PlayWhen == GifPlayWhen.Selected)
                 ApplyPlayback();
         }
