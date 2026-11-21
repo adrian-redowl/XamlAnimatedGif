@@ -10,6 +10,23 @@ A library to display animated GIF images in WPF applications on .NET Framework 4
 <Image gif:AnimationBehavior.SourceUri="/Images/animated.gif" />
 ```
 
+**Caption, selection ring, and play/stop** (`GifImage`):
+
+`PlayWhen` chooses when the animation runs. `Selected` plays while `IsSelected` is true, and `MouseOver` plays while the pointer is over the control. Either way, stop returns to the first frame and holds it. `IsSelected` also draws the HausFin media-item ring: 4px, `#FFFFE2A8`, corner radius 2. `Caption` is the title under the image; an empty caption is hidden.
+
+```xml
+<gif:GifImage SourceUri="/Images/trailer.gif"
+              Caption="{Binding Title}"
+              IsSelected="{Binding IsSelected}"
+              PlayWhen="Selected" />
+```
+
+```xml
+<gif:GifImage SourceUri="/Images/trailer.gif"
+              Caption="{Binding Title}"
+              PlayWhen="MouseOver" />
+```
+
 For more details, see the [documentation page](https://github.com/XamlAnimatedGif/XamlAnimatedGif/wiki/Documentation) in the wiki.
 
 ## About Silverlight 5, Windows 8.1, Windows Phone 8.1, UWP .NET 4.0 support
